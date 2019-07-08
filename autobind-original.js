@@ -1,16 +1,12 @@
-"use strict";
+'use strict';
 
-var rp = rp || [];
-
-rp.Autobind = function() {
-    this.autoboundEventHandlers = {};
+const autoboundEventHandlers = {
+    addEventHandler: function(name, fn) {
+        this[name] = fn;
+    }
 }
 
-rp.Autobind.prototype.addEventHandler = function(name, fn) {
-    this.autoboundEventHandlers[name] = fn;
-}
-
-rp.Autobind.prototype.assignAutoboundEventHandlers = function() {
+const assignAutoboundEventHandlers = function() {
     const convertToArray = function (str, delimiter = ',') {
         if (str === null) {
             throw `convertToArray() failed with null 'str' argument`;
@@ -21,13 +17,13 @@ rp.Autobind.prototype.assignAutoboundEventHandlers = function() {
     const actionElements = Array.from(document.querySelectorAll('*[data-events]'));
 
     actionElements.forEach(element => {
-        const self = this;
+        const currentElement = element;
         const confirmFunctionsExist = function(functions) {
             functions.map(fn => {
-                if (self.autoboundEventHandlers[fn] === null || typeof self.autoboundEventHandlers[fn] !== 'function') {
+                if (autoboundEventHandlers[fn] === null || typeof autoboundEventHandlers[fn] !== 'function') {
                     throw `This autobound handler was not found: ${fn}`;
                 }
-            }, self)
+            })
         }
         
         const assignElementEventHandlers = function(events) {
@@ -39,22 +35,17 @@ rp.Autobind.prototype.assignAutoboundEventHandlers = function() {
                     if (functions.length = 1) {
                         handlerName = functions[0];
                     }
-                    // Otherwise, use the ordinal position of the event name to 
+                    // Otherwise, use the order position of the event name to 
                     // determine the handler. 
                     else {
                         handlerName = functions[index];
                     }
-
-                    // Using call explicitly sets 'this' in the called handler function
-                    // to the target element. Beware that you'll not get the window object as 
-                    // `this` if the handler function was defined as an arrow function.
-                    // That said, 'this' isn't really necessary in the handler function because
-                    // you can use the e.currentTarget in the handler functino to get a reference
-                    // to the target element.
-                                         
-                    self.autoboundEventHandlers[handlerName].call(element, e);                    
+                    
+                    console.log(element);
+                    autoboundEventHandlers[handlerName].call(element, e);                    
+//                    autoboundEventHandlers[handlerName](e);                    
                 });
-            }, self)
+            })
         }        
 
         const events = convertToArray(element.getAttribute('data-events'));
@@ -62,6 +53,9 @@ rp.Autobind.prototype.assignAutoboundEventHandlers = function() {
 
         confirmFunctionsExist(functions);
         assignElementEventHandlers(events);
-    }, this)
+    })
 }    
+
+
+
 
