@@ -1,16 +1,10 @@
-## An easy way to use declarative event handlers 
-
-
-
-This repo shows:
-
----
-
 ### Declarative DOM element event handlers 
 
 There are great JavaScript libraries ([React](https://reactjs.org/) and [Vue.js](https://vuejs.org/), for example) that take a lot of the pain out of wiring up DOM element event handlers. Vue.js, especially, is good way to easily add declarative event handlers to your projects. 
 
 However, for many simple projects those libraries are just too heavy. This article provides a simple, declarative way to assign multiple DOM element event handlers using custom HTML attributes. 
+
+[Online demo](https://rogerpence.github.io/autobind-javascript-event-handlers/)
 
 #### Assigning event names and handlers
 
