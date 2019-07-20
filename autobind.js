@@ -49,7 +49,7 @@ rp.Autobind.prototype.assignAutoboundEventHandlers = function() {
                     // to the target element. Beware that you'll not get the window object as 
                     // `this` if the handler function was defined as an arrow function.
                     // That said, 'this' isn't really necessary in the handler function because
-                    // you can use the e.currentTarget in the handler functino to get a reference
+                    // you can use the e.currentTarget in the handler function to get a reference
                     // to the target element.
                                          
                     self.autoboundEventHandlers[handlerName].call(element, e);                    

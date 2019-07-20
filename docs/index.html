@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">    
+
+    <style>
+        code {
+            background-color: lightgray;
+            padding: .3em;
+            border-radius: .5em;
+        }
+    </style>
+</head>
+<body class="p-4 text-lg">
+    <div class="mb-2">
+        <h2 class="text-3xl mb-6">Using event handlers bound with AutoBind</h2>
+
+        <p class="mb-4">
+            Use a dev console to see the fired events.  
+        </p>
+        <p class="mb-4">
+            To assign a single handler to multiple events:
+        </p>
+
+        <pre class="bg-gray-200 p-2 mb-4">
+&lt;button data-events="click, blur" 
+        data-handlers="clickTest">
+    Click me
+&lt;/button></pre>
+
+        <p class="mb-4">
+        To assign a seperate handler to every event specified:
+        </p>    
+
+        <pre class="bg-gray-200 p-2 mb-4">
+&lt;button data-events="click, blur" 
+        data-handlers="clickTest, blurTest">
+    Click me
+&lt;/button></pre>
+
+        <p class="mb-4">
+        Use AutoBind's <code>addEventHandler</code> to add event handlers. Defining an event handler with a traditional function ensures that the <code>this</code> value in the function correctly references the target element (arrow arrow functions don't have their own <code>this</code>. You could also specify any other in-scope function name (that expects an event argument) with <code>addEventHandler.</code>
+        </p>    
+
+
+        <pre class="bg-gray-200 p-2 mb-4">
+'use strict';
+
+const ab = new rp.Autobind();
+
+ab.addEventHandler('clickTest', function(e) {
+    console.log(this);
+    console.log(e.type);
+    console.log(e.currentTarget);
+    console.log('event handled');
+});
+
+ab.assignAutoboundEventHandlers();</pre>            
+
+    <p>Click the button or move focus to the input to fire the button's two events.</p>            
+    
+
+    </div>
+    
+    <div class="mt-4">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            data-events="click, blur" 
+            data-handlers="clickTest">
+        Click me</button>
+    </div>
+
+    <div class="mt-4">
+        <label for="test-input" class="pr-2">Test input</label>
+        <input name="test-input" class="bg-gray-300" type="text">
+    </div>
+
+    <!-- <script src="autobind-original.js"></script> -->
+    <script src="autobind.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
