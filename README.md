@@ -4,7 +4,9 @@ There are great JavaScript libraries ([React](https://reactjs.org/) and [Vue.js]
 
 However, for many simple projects those libraries are just too heavy. This article provides a simple, declarative way to assign multiple DOM element event handlers using custom HTML attributes. 
 
+[GitHub repo](https://github.com/rogerpence/autobind-javascript-event-handlers)
 [Online demo](https://rogerpence.github.io/autobind-javascript-event-handlers/)
+
 
 #### Assigning event names and handlers
 
